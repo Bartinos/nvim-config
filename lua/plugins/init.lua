@@ -42,6 +42,31 @@ return {
       require("dapui").setup()
     end,
   },
+
+  {
+    "nvimdev/lspsaga.nvim",
+    event = "LspAttach",
+    config = function()
+      require("lspsaga").setup({
+        symbol_in_winbar = {
+          enable = true,       -- Explicitly force the breadcrumbs on
+          show_file = true,
+          color_mode = true,
+        },
+        -- Custom configurations go here (optional)
+        ui = {
+          border = "rounded",
+        },
+        lightbulb = {
+          enable = false, -- NvChad already has UI indicators, true if you want it
+        },
+      })
+    end,
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter", -- Already handled by NvChad, but good to declare
+      "nvim-tree/nvim-web-devicons",     -- For cool icons
+    }
+  },
   -- {
   --   "yetone/avante.nvim",
   --   event = "VeryLazy",

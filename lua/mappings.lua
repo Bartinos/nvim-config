@@ -32,9 +32,24 @@ map("n", "<Leader>dt", "<cmd>lua vim.cmd('RustLsp testables')<CR>", { desc = "De
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
 --
 --
-map("n", "<leader>ra", function()
-  vim.lsp.buf.rename()
-end, { desc = "LSP rename variable" })
+-- Replace your old vim.lsp.buf.rename() with this:
+map("n", "<leader>ra", "<cmd>Lspsaga rename<CR>", { desc = "LSP rename variable (Saga)" })
 
 -- The new diagnostic mapping
 map("n", "<leader>q", "<cmd>lua vim.diagnostic.open_float()<cr>", { desc = "Floating diagnostic" })
+
+-- Lspsaga 
+map("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", { desc = "LSP Finder" })
+map({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>", { desc = "LSP Code Action" })
+map("n", "K", "<cmd>Lspsaga hover_doc<CR>", { desc = "LSP Hover Doc" })
+
+-- Diagnostic navigation (Saga style)
+map("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { desc = "Go to Prev Diagnostic" })
+map("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", { desc = "Go to Next Diagnostic" })
+
+-- Peek definition / type definition
+map("n", "gp", "<cmd>Lspsaga peek_definition<CR>", { desc = "Peek Definition" })
+map("n", "gt", "<cmd>Lspsaga peek_type_definition<CR>", { desc = "Peek Type Definition" })
+
+-- File outline sidebar
+map("n", "<leader>o", "<cmd>Lspsaga outline<CR>", { desc = "Toggle Outline" })

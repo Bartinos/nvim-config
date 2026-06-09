@@ -14,4 +14,21 @@ M.base46 = {
 	-- },
 }
 
+M.mason = {
+  ensure_installed = {
+    -- LSPs from your config
+    "html-lsp",
+    "angular-language-server",
+    "typescript-language-server",
+    "pyright",
+    "css-lsp",
+    "tailwindcss-language-server",
+
+    -- Formatters / Linters you want Mason to manage
+    "stylua",
+    "prettierd",
+    "black",
+  },
+}
+
 return M

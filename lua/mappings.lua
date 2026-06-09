@@ -38,12 +38,12 @@ map("n", "<leader>ra", "<cmd>Lspsaga rename<CR>", { desc = "LSP rename variable 
 -- The new diagnostic mapping
 map("n", "<leader>q", "<cmd>lua vim.diagnostic.open_float()<cr>", { desc = "Floating diagnostic" })
 
--- Lspsaga 
-map("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", { desc = "LSP Finder" })
+-- Lspsaga (Fixed modern commands)
+map("n", "gh", "<cmd>Lspsaga finder<CR>", { desc = "LSP Finder" })
 map({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>", { desc = "LSP Code Action" })
 map("n", "K", "<cmd>Lspsaga hover_doc<CR>", { desc = "LSP Hover Doc" })
 
--- Diagnostic navigation (Saga style)
+-- Diagnostic navigation
 map("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { desc = "Go to Prev Diagnostic" })
 map("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", { desc = "Go to Next Diagnostic" })
 

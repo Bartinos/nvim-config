@@ -4,7 +4,7 @@ require("nvchad.configs.lspconfig").defaults()
 local nvlsp = require "nvchad.configs.lspconfig"
 
 -- 1. REMOVE cssls from this list
-local servers = { "html", "angularls", "ts_ls", "pyright" }
+local servers = { "html", "ts_ls", "pyright" }
 
 -- lsps with default config
 for _, lsp in ipairs(servers) do
@@ -58,3 +58,13 @@ vim.lsp.config("tailwindcss", {
   },
 })
 vim.lsp.enable "tailwindcss"
+
+-- 4. OPTIONAL: If you occasionally work on Angular projects, 
+-- configure it strictly so it ONLY wakes up when an actual angular.json is present
+vim.lsp.config("angularls", {
+  on_attach = nvlsp.on_attach,
+  on_init = nvlsp.on_init,
+  capabilities = nvlsp.capabilities,
+  root_markers = { "angular.json" },
+})
+vim.lsp.enable "angularls"

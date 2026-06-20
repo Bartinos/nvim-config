@@ -60,50 +60,65 @@ return {
         lightbulb = {
           enable = false, -- NvChad already has UI indicators, true if you want it
         },
-      })
+      }
     end,
     dependencies = {
       "nvim-treesitter/nvim-treesitter", -- Already handled by NvChad, but good to declare
-      "nvim-tree/nvim-web-devicons",     -- For cool icons
-    }
+      "nvim-tree/nvim-web-devicons", -- For cool icons
+    },
   },
-  -- {
-  --   "yetone/avante.nvim",
-  --   event = "VeryLazy",
-  --   lazy = false,
-  --   build = "make BUILD_FROM_SOURCE=true",
-  --   opts = {
-  --     provider = "ollamalocal",
-  --     auto_suggestions_provider = "ollamalocal",
-  --     providers = {
-  --       ollamalocal = {
-  --         __inherited_from = "openai",
-  --         api_key_name = "",
-  --         endpoint = "http://127.0.0.1:11434/v1",
-  --         model = "qwen2.5-coder:7b",
-  --         disable_tools = true, -- <--- ADD THIS LINE
-  --         max_tokens = 4096,
-  --         temperature = 0,
-  --         timeout = 30000,
-  --       },
-  --     }, -- Some local models get confused by tool instructions.
-  --     -- If it still just talks, uncomment the line below to see the error:
-  --     -- debug = true,
-  --   },
-  --   dependencies = {
-  --     "stevearc/dressing.nvim",
-  --     "nvim-lua/plenary.nvim",
-  --     "MunifTanjim/nui.nvim",
-  --     "MeanderingProgrammer/render-markdown.nvim",
-  --   },
-  -- },
-  -- {
-  -- 	"nvim-treesitter/nvim-treesitter",
-  -- 	opts = {
-  -- 		ensure_installed = {
-  -- 			"vim", "lua", "vimdoc",
-  --      "html", "css"
-  -- 		},
-  -- 	},
-  -- },
+  {
+    "olimorris/codecompanion.nvim",
+    event = { "User FilePost", "BufReadPost", "BufNewFile" },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "hrsh7th/nvim-cmp",
+    },
+    config = function()
+      require("codecompanion").setup {
+        strategies = {
+          chat = { adapter = "llama_cpp" },
+          inline = { adapter = "llama_cpp" },
+        },
+        adapters = {
+          http = {
+            llama_cpp = function()
+              return require("codecompanion.adapters").extend("openai_compatible", {
+                name = "llama_cpp",
+                env = {
+                  url = "http://127.0.0.1:8090",
+                  chat_url = "/v1/chat/completions",
+                },
+                schema = {
+                  model = {
+                    default = "local-model",
+                  },
+                  num_ctx = {
+                    default = 16384, -- Let CodeCompanion know you have a large context window
+                  },
+                },
+              })
+            end,
+          },
+        },
+      }
+    end,
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        "vim",
+        "lua",
+        "vimdoc",
+        "html",
+        "css",
+        "javascript",
+        "typescript",
+        "tsx",
+        "python",
+      },
+    },
+  },
 }

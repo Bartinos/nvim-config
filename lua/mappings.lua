@@ -53,3 +53,16 @@ map("n", "gt", "<cmd>Lspsaga peek_type_definition<CR>", { desc = "Peek Type Defi
 
 -- File outline sidebar
 map("n", "<leader>o", "<cmd>Lspsaga outline<CR>", { desc = "Toggle Outline" })
+
+-- toggle lsp diagnostics
+-- Toggle diagnostics on/off manually when the linter panics
+map('n', '<leader>td', function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  if vim.diagnostic.is_enabled({ bufnr = bufnr }) then
+    vim.diagnostic.enable(false, { bufnr = bufnr })
+    print("Diagnostics Disabled")
+  else
+    vim.diagnostic.enable(true, { bufnr = bufnr })
+    print("Diagnostics Enabled")
+  end
+end, { desc = "Toggle Diagnostics" })

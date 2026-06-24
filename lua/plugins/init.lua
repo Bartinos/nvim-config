@@ -47,9 +47,9 @@ return {
     "nvimdev/lspsaga.nvim",
     event = "LspAttach",
     config = function()
-      require("lspsaga").setup({
+      require("lspsaga").setup {
         symbol_in_winbar = {
-          enable = true,       -- Explicitly force the breadcrumbs on
+          enable = true, -- Explicitly force the breadcrumbs on
           show_file = true,
           color_mode = true,
         },
@@ -120,5 +120,19 @@ return {
         "python",
       },
     },
+  },
+  {
+    "akinsho/git-conflict.nvim",
+    version = "*",
+    -- 1. Force the plugin to load as soon as you open a file
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require("git-conflict").setup {
+        default_mappings = true,
+      }
+
+      -- 2. Force an immediate refresh in case NvChad already cached the buffer
+      vim.cmd [[GitConflictRefresh]]
+    end,
   },
 }

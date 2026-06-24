@@ -135,4 +135,39 @@ return {
       vim.cmd [[GitConflictRefresh]]
     end,
   },
+  {
+    "AckslD/swenv.nvim",
+    event = "VeryLazy",
+    opts = function()
+      return {
+        venvs_path = vim.fn.expand "~/.local/share/mamba/envs",
+        post_set_venv = function()
+          vim.cmd "LspRestart pyright"
+        end,
+      }
+    end,
+    config = function(_, opts)
+      -- Hotpatch: Fixes the Plenary.nvim flatten() crash on Neovim 0.10+
+      local ok, compat = pcall(require, "plenary.compat")
+      if ok then
+        compat.flatten = function(t)
+          local flat = {}
+          local function recurse(item)
+            if type(item) == "table" then
+              for _, v in ipairs(item) do
+                recurse(v)
+              end
+            else
+              table.insert(flat, item)
+            end
+          end
+          recurse(t)
+          return flat
+        end
+      end
+
+      -- Pass the opts to setup now that Plenary is patched
+      require("swenv").setup(opts)
+    end,
+  },
 }

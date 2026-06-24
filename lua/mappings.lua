@@ -66,3 +66,8 @@ map('n', '<leader>td', function()
     print("Diagnostics Enabled")
   end
 end, { desc = "Toggle Diagnostics" })
+
+-- Swap mamba environment
+map("n", "<leader>se", function()
+  require("swenv.api").pick_venv()
+end, { desc = "Switch Python Environment" })

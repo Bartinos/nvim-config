@@ -71,3 +71,18 @@ end, { desc = "Toggle Diagnostics" })
 map("n", "<leader>se", function()
   require("swenv.api").pick_venv()
 end, { desc = "Switch Python Environment" })
+
+
+-- Enable OSC 52 block
+map('v', '<leader>y', '"+y', { desc = "Copy to system clipboard" })
+vim.g.clipboard = {
+  name = 'OSC 52',
+  copy = {
+    ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+  },
+  paste = {
+    ['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+    ['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+  },
+}

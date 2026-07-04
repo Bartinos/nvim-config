@@ -29,14 +29,25 @@ map("n", "<Leader>dr", "<cmd>lua require'dap'.run_last()<CR>", { desc = "Debugge
 map("n", "<Leader>dt", "<cmd>lua vim.cmd('RustLsp testables')<CR>", { desc = "Debugger testables" })
 
 
--- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
---
+-- CODE COMPANION
+-- Toggle the main chat buffer
+map({ "n", "v" }, "<leader>a", "<cmd>CodeCompanionToggle<cr>", { desc = "AI Chat Toggle" })
+
+-- Open the command palette (Inline actions, prompts, etc.)
+map({ "n", "v" }, "<leader>ap", "<cmd>CodeCompanionActions<cr>", { desc = "AI Palette/Actions" })
+
+-- Add selected code directly to the chat buffer
+map("v", "<leader>aa", "<cmd>CodeCompanionAdd<cr>", { desc = "AI Add to Chat" })
+
+-- Quick inline assistant (creates a ghost-text prompt over your current line/selection)
+map({ "n", "v" }, "<leader>ai", "<cmd>CodeCompanion<cr>", { desc = "AI Inline Assistant" })
 --
 -- Replace your old vim.lsp.buf.rename() with this:
 map("n", "<leader>ra", "<cmd>Lspsaga rename<CR>", { desc = "LSP rename variable (Saga)" })
 
 -- The new diagnostic mapping
 map("n", "<leader>q", "<cmd>lua vim.diagnostic.open_float()<cr>", { desc = "Floating diagnostic" })
+
 
 -- Lspsaga (Fixed modern commands)
 map("n", "gh", "<cmd>Lspsaga finder<CR>", { desc = "LSP Finder" })

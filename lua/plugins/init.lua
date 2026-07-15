@@ -170,4 +170,12 @@ return {
       require("swenv").setup(opts)
     end,
   },
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = { "markdown", "codecompanion" }, -- Loads for normal MD files AND codecompanion
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+    opts = {
+      file_types = { "markdown", "codecompanion" },
+    },
+  },
 }
